@@ -14,4 +14,4 @@
 ![subnetm5](https://user-images.githubusercontent.com/100068648/205700026-5435aa5b-b177-42b2-9c56-fe62189ba9ee.png)
 
 ## Tree (VLSM)
-![treem5](https://user-images.githubusercontent.com/100068648/205707306-9d9d6875-fd99-444b-b565-0b875faf51f4.jpg)
+![tree5](https://user-images.githubusercontent.com/100068648/205707744-2f565059-48d2-40d5-8962-ac022b49b892.png)
