@@ -8,12 +8,12 @@
 | 2 | Moh. Ilham Fakhri Zamzami | 5025201275 |
 | 3 | Putu Andhika Pratama | 5025201132 |
 
-## Topologi
+## A. Topologi
 ![topologi](https://user-images.githubusercontent.com/100068648/205689037-1cc0d455-080f-42e1-a0e8-645fcab38057.png)
 
 ![subnetm5](https://user-images.githubusercontent.com/100068648/205700026-5435aa5b-b177-42b2-9c56-fe62189ba9ee.png)
 
-## Subnet (VLSM)
+## B. Subneting (VLSM)
 
 ### Tree
 ![tree5](https://user-images.githubusercontent.com/100068648/205799802-44f6a840-7da8-4de7-9193-986a29c25385.png)
@@ -164,4 +164,16 @@ iface eth0 inet static
 address 10.34.1.2
 netmask 255.255.255.0
 gateway 10.34.1.1
+```
+
+## C. Routing
+
+#### Strix
+```
+route add -net 10.34.0.16 netmask 255.255.255.248 gw 10.34.0.2
+route add -net 10.34.0.128 netmask 255.255.255.128 gw 10.34.0.2
+route add -net 10.34.4.0 netmask 255.255.254.0 gw 10.34.0.2
+route add -net 10.34.0.24 netmask 255.255.255.248 gw 10.34.0.6
+route add -net 10.34.1.0 netmask 255.255.255.0 gw 10.34.0.6
+route add -net 10.34.2.0 netmask 255.255.252.0 gw 10.34.0.6
 ```
