@@ -19,7 +19,7 @@
 ![tree5](https://user-images.githubusercontent.com/100068648/205799802-44f6a840-7da8-4de7-9193-986a29c25385.png)
 
 ### Pembagian IP
-![subnetip5](https://user-images.githubusercontent.com/100068648/205801710-5d59f6eb-79be-48c3-bfd2-9800be84589c.png)
+![subnetip5](https://user-images.githubusercontent.com/100068648/205810966-4d431855-aefa-49d6-9465-45e833808247.png)
 
 #### Eden
 ```
@@ -117,7 +117,7 @@ gateway 10.34.0.5
 auto eth1
 iface eth1 inet static
 address 10.34.2.1
-netmask 255.255.252.0
+netmask 255.255.254.0
 
 auto eth2
 iface eth2 inet static
@@ -135,7 +135,7 @@ netmask 255.255.255.248
 auto eth0
 iface eth0 inet static
 address 10.34.2.2
-netmask 255.255.252.0
+netmask 255.255.254.0
 gateway 10.34.2.1
 ```
 
@@ -175,5 +175,5 @@ route add -net 10.34.0.128 netmask 255.255.255.128 gw 10.34.0.2
 route add -net 10.34.4.0 netmask 255.255.254.0 gw 10.34.0.2
 route add -net 10.34.0.24 netmask 255.255.255.248 gw 10.34.0.6
 route add -net 10.34.1.0 netmask 255.255.255.0 gw 10.34.0.6
-route add -net 10.34.2.0 netmask 255.255.252.0 gw 10.34.0.6
+route add -net 10.34.2.0 netmask 255.255.254.0 gw 10.34.0.6
 ```
