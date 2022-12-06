@@ -178,3 +178,75 @@ route add -net 10.34.0.24 netmask 255.255.255.248 gw 10.34.0.6
 route add -net 10.34.1.0 netmask 255.255.255.0 gw 10.34.0.6
 route add -net 10.34.2.0 netmask 255.255.254.0 gw 10.34.0.6
 ```
+
+## D. DHCP
+
+### WISE (DHCP Server)
+
+Install DHCP Server
+
+```
+apt-get update
+apt-get install isc-dhcp-server -y
+```
+
+Lalu edit interface pada file `/etc/default/isc-dhcp-server` tambahkan
+
+```
+INTERFACES="eth0"
+```
+
+Edit file `/etc/dhcp/dhcpd.conf`
+
+```
+# Forger (A2)
+subnet 10.34.0.128 netmask 255.255.255.128 {
+    range 10.34.0.130 10.34.0.254;
+    option routers 10.34.0.129;
+    option broadcast-address 10.34.0.255;
+    option domain-name-servers 10.34.0.18;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Desmond (A3)
+subnet 10.34.4.0 netmask 255.255.252.0 {
+    range 10.34.4.2 10.34.7.254;
+    option routers 10.34.4.1;
+    option broadcast-address 10.34.7.255;
+    option domain-name-servers 10.34.0.18;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Blackbell (A6)
+subnet 10.34.2.0 netmask 255.255.254.0 {
+    range 10.34.2.2 10.34.3.254;
+    option routers 10.34.2.1;
+    option broadcast-address 10.34.3.255;
+    option domain-name-servers 10.34.0.18;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Briar (A8)
+subnet 10.34.1.0 netmask 255.255.255.0 {
+    range 10.34.1.2 10.34.1.254;
+    option routers 10.34.1.1;
+    option broadcast-address 10.34.1.255;
+    option domain-name-servers 10.34.0.18;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Eden & WISE (A1)
+subnet 10.34.0.16 netmask 255.255.255.248 {
+}
+
+# Garden & SSS (A7)
+subnet 10.34.0.24 netmask 255.255.255.248 {
+}
+```
+
+Lalu restart DHCP Server `service isc-dhcp-server restart`
+
