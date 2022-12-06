@@ -148,9 +148,26 @@ iface eth0 inet dhcp
 ## C. Routing
 
 ### Strix
-Jalankan command berikut pada Foosha untuk pengaturan lalu lintas komputer.
+Dapatkan hwaddress dengan `ip a`
 
-`iptables -t nat -A POSTROUTING -s 10.3.0.0/21 -o eth0 -j SNAT --to-source [IP Foosha]`
+![hwaddress](https://user-images.githubusercontent.com/100068648/205817234-a1262bf6-c78e-4ebe-8988-d6c7b152c6ee.png)
+
+Edit config node Strix agar ipnya tidak berubah
+```
+auto eth0
+iface eth0 inet dhcp
+hwaddress ether a6:4c:e1:85:b9:19
+
+auto eth1
+iface eth1 inet static
+    address 10.34.0.5
+    netmask 255.255.255.252
+
+auto eth2
+iface eth2 inet static
+    address 10.34.0.1
+    netmask 255.255.255.252
+```
 
 Kemudian lakukan routing.
 ```
