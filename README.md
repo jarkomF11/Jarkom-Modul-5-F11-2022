@@ -15,8 +15,8 @@
 
 ## Subnet (VLSM)
 
-# Tree
+### Tree
 ![tree5](https://user-images.githubusercontent.com/100068648/205799802-44f6a840-7da8-4de7-9193-986a29c25385.png)
 
-# Pembagian IP
+### Pembagian IP
 ![subnetip5](https://user-images.githubusercontent.com/100068648/205801710-5d59f6eb-79be-48c3-bfd2-9800be84589c.png)
