@@ -18,157 +18,141 @@
 ### Tree
 ![tree5](https://user-images.githubusercontent.com/100068648/205799802-44f6a840-7da8-4de7-9193-986a29c25385.png)
 
-### Pembagian IP
-![subnetip5](https://user-images.githubusercontent.com/100068648/205810966-4d431855-aefa-49d6-9465-45e833808247.png)
+### Config Node
 
-#### Eden
+- Strix (Router)
 ```
-auto eth0
-iface eth0 inet static
-address 10.34.0.18
-netmask 255.255.255.248
-gateway 10.34.0.17
-```
-
-#### WISE
-```
-auto eth0
-iface eth0 inet static
-address 10.34.0.19
-netmask 255.255.255.248
-gateway 10.34.0.17
-```
-
-#### Westalis
-```
-auto lo
-iface lo inet loopback
-
-auto eth0
-iface eth0 inet static
-address 10.34.0.2
-netmask 255.255.255.252
-gateway 10.34.0.1
-
-auto eth1
-iface eth1 inet static
-address 10.34.4.1
-netmask 255.255.254.0
-
-auto eth2
-iface eth2 inet static
-address 10.34.0.129
-netmask 255.255.255.128
-
-auto eth3
-iface eth3 inet static
-address 10.34.0.17
-netmask 255.255.255.248
-```
-
-#### Forger
-```
-auto eth0
-iface eth0 inet static
-address 10.34.0.130
-netmask 255.255.255.128
-gateway 10.34.0.129
-```
-
-#### Desmond
-```
-auto eth0
-iface eth0 inet static
-address 10.34.4.2
-netmask 255.255.254.0
-gateway 10.34.4.1
-```
-
-#### Strix
-```
-auto lo
-iface lo inet loopback
-
 auto eth0
 iface eth0 inet dhcp
 
 auto eth1
 iface eth1 inet static
-address 10.34.0.5
-netmask 255.255.255.252
+    address 10.34.0.5
+    netmask 255.255.255.252
 
 auto eth2
 iface eth2 inet static
-address 10.34.0.1
-netmask 255.255.255.252
+    address 10.34.0.1
+    netmask 255.255.255.252
 ```
 
-#### Ostania
+- Ostania (DHCP Relay)
 ```
-auto lo
-iface lo inet loopback
-
 auto eth0
 iface eth0 inet static
 address 10.34.0.6
-netmask 255.255.255.252
-gateway 10.34.0.5
+    netmask 255.255.255.252
+    gateway 10.34.0.5
 
 auto eth1
 iface eth1 inet static
-address 10.34.2.1
-netmask 255.255.254.0
+    address 10.34.2.1
+    netmask 255.255.254.0
 
 auto eth2
 iface eth2 inet static
-address 10.34.1.1
-netmask 255.255.255.0
+    address 10.34.1.1
+    netmask 255.255.255.0
 
 auto eth3
 iface eth3 inet static
-address 10.34.0.25
-netmask 255.255.255.248
+    address 10.34.0.25
+    netmask 255.255.255.248
 ```
 
-#### Blackbell
+- Westalis (DHCP Relay)
 ```
 auto eth0
 iface eth0 inet static
-address 10.34.2.2
-netmask 255.255.254.0
-gateway 10.34.2.1
+address 10.34.0.2
+    netmask 255.255.255.252
+    gateway 10.34.0.1
+
+auto eth1
+iface eth1 inet static
+    address 10.34.4.1
+    netmask 255.255.254.0
+
+auto eth2
+iface eth2 inet static
+    address 10.34.0.129
+    netmask 255.255.255.128
+
+auto eth3
+iface eth3 inet static
+    address 10.34.0.17
+    netmask 255.255.255.248
 ```
 
-#### Garden
+- Eden (DNS Server)
+```
+
+auto eth0
+iface eth0 inet static
+    address 10.34.0.18
+    netmask 255.255.255.248
+    gateway 10.34.0.17
+```
+
+- WISE (DHCP Server)
 ```
 auto eth0
 iface eth0 inet static
-address 10.34.0.26
-netmask 255.255.255.248
-gateway 10.34.0.25
+    address 10.34.0.19
+    netmask 255.255.255.248
+    gateway 10.34.0.17
 ```
 
-#### SSS
+- Garden (Web Server)
 ```
 auto eth0
 iface eth0 inet static
-address 10.34.0.27
-netmask 255.255.255.248
-gateway 10.34.0.25
+    address 10.34.0.26
+    netmask 255.255.255.248
+    gateway 10.34.0.25
 ```
 
-#### Briar
+- SSS (Web Server)
 ```
 auto eth0
 iface eth0 inet static
-address 10.34.1.2
-netmask 255.255.255.0
-gateway 10.34.1.1
+    address 10.34.0.27
+    netmask 255.255.255.248
+    gateway 10.34.0.25
+```
+
+- Forger (Client)
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+- Desmond (Client)
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+- Blackbell (Client)
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+- Briar (Client)
+```
+auto eth0
+iface eth0 inet dhcp
 ```
 
 ## C. Routing
 
-#### Strix
+### Strix
+Jalankan command berikut pada Foosha untuk pengaturan lalu lintas komputer.
+
+`iptables -t nat -A POSTROUTING -s 10.3.0.0/21 -o eth0 -j SNAT --to-source [IP Foosha]`
+
+Kemudian lakukan routing.
 ```
 route add -net 10.34.0.16 netmask 255.255.255.248 gw 10.34.0.2
 route add -net 10.34.0.128 netmask 255.255.255.128 gw 10.34.0.2
