@@ -274,12 +274,37 @@ OPTIONS=""
 
 Kemudian restart DHCP Relay `service isc-dhcp-relay restart`
 
-#### Testing pada client
+### Testing pada client
 
-![ipforger](https://user-images.githubusercontent.com/100068648/205834360-cab34664-7672-4540-a565-b420abd14fab.png)
+![ipfo](https://user-images.githubusercontent.com/100068648/205834859-6bf79f09-fb90-4524-bfb7-9dc3d9efe600.png)
 
 ![ipdesmond](https://user-images.githubusercontent.com/100068648/205834440-c130af4c-aec6-49c4-b437-cb600b2502fd.png)
 
 ![ipblackbell](https://user-images.githubusercontent.com/100068648/205834517-e7f89dc7-0a29-4f93-a0c7-6df15f1f063e.png)
 
 ![ipbriar](https://user-images.githubusercontent.com/100068648/205834537-58174013-360b-41a5-89fc-8c0bf024b36f.png)
+
+## Soal 1
+### Soal
+Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Strix menggunakan iptables, tetapi Loid tidak ingin menggunakan MASQUERADE.
+
+### Jawaban
+Pada node Strix
+```
+iptables -t nat -A POSTROUTING -s 10.34.0.0/21 -o eth0 -j SNAT --to-source 192.168.122.108
+```
+
+Pada node lain
+```
+echo "nameserver 192.168.122.1" > /etc/resolv.conf
+```
+
+Coba ping google
+
+![wiseping](https://user-images.githubusercontent.com/100068648/205835669-f3846cec-6ef7-448e-890e-69c2c35c3230.png)
+
+## Soal 2
+### Soal
+Kalian diminta untuk melakukan drop semua TCP dan UDP dari luar Topologi kalianpada server yang merupakan DHCP Server demi menjaga keamanan.
+
+### Jawaban
