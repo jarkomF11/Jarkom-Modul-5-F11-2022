@@ -250,3 +250,36 @@ subnet 10.34.0.24 netmask 255.255.255.248 {
 
 Lalu restart DHCP Server `service isc-dhcp-server restart`
 
+### Ostania & Westalis (DHCP Relay)
+
+Install DHCP Relay
+
+```
+apt-get update
+apt-get install isc-dhcp-relay -y
+```
+
+Edit file `/etc/default/isc-dhcp-relay`
+
+```
+# What servers should the DHCP relay forward requests to?
+SERVERS="10.34.0.19"
+
+# On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
+INTERFACES="eth0 eth1 eth2 eth3"
+
+# Additional options that are passed to the DHCP relay daemon?
+OPTIONS=""
+```
+
+Kemudian restart DHCP Relay `service isc-dhcp-relay restart`
+
+#### Testing pada client
+
+![ipforger](https://user-images.githubusercontent.com/100068648/205834360-cab34664-7672-4540-a565-b420abd14fab.png)
+
+![ipdesmond](https://user-images.githubusercontent.com/100068648/205834440-c130af4c-aec6-49c4-b437-cb600b2502fd.png)
+
+![ipblackbell](https://user-images.githubusercontent.com/100068648/205834517-e7f89dc7-0a29-4f93-a0c7-6df15f1f063e.png)
+
+![ipbriar](https://user-images.githubusercontent.com/100068648/205834537-58174013-360b-41a5-89fc-8c0bf024b36f.png)
