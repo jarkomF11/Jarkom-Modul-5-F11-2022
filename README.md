@@ -308,3 +308,64 @@ Coba ping google
 Kalian diminta untuk melakukan drop semua TCP dan UDP dari luar Topologi kalianpada server yang merupakan DHCP Server demi menjaga keamanan.
 
 ### Jawaban
+Pada node strix jalankan perintah
+```
+iptables -A FORWARD -p tcp -d 10.34.0.19 -i eth0 -j DROP
+iptables -A FORWARD -p udp -d 10.34.0.19 -i eth0 -j DROP
+```
+
+Coba ping google pada DHCP Server WISE
+
+![wiseping](https://user-images.githubusercontent.com/100068648/206632761-c0b1e95a-f987-499c-8467-8891dbff7273.png)
+
+## Soal 3
+### Soal
+Loid meminta kalian untuk membatasi DHCP dan DNS Server hanya boleh menerima maksimal 2 koneksi ICMP secara bersamaan menggunakan iptables, selebihnya didrop.
+
+### Jawaban
+Pada DHCP (WISE) dan DNS Server (Eden)
+
+```
+iptables -A INPUT -p icmp -m connlimit --connlimit-above 2 --connlimit-mask 0 -j DROP
+```
+
+Lalu coba ping dari 3 client berbeda ke ip DNS Server (Eden)
+
+![pinglimitforger](https://user-images.githubusercontent.com/100068648/206634278-663871eb-3575-48d3-b211-b7c9b6bdca2f.png)
+
+![pinglimitbriar](https://user-images.githubusercontent.com/100068648/206634300-d4c849cf-5287-45c0-a35e-1e4626cd3f30.png)
+
+![pinglimitdesmond](https://user-images.githubusercontent.com/100068648/206634316-706c153b-aebf-4db9-bf1f-8c61b8c0c333.png)
+
+Coba juga ping dari 3 client berbeda ke ip DHCP Server (WISE)
+
+![forgerlimit](https://user-images.githubusercontent.com/100068648/206635089-542e95d0-1844-429a-b574-ce606a32ccec.png)
+
+![desmondlimit](https://user-images.githubusercontent.com/100068648/206635116-012d0bcc-8ea5-4eb8-a854-4886ebb5f329.png)
+
+![briarlimit](https://user-images.githubusercontent.com/100068648/206635124-5244417a-2579-4b7d-8954-b53a2db733b6.png)
+
+## Soal 4
+### Soal
+Akses menuju Web Server hanya diperbolehkan disaat jam kerja yaitu Senin sampai Jumat pada pukul 07.00 - 16.00.
+
+### Jawaban
+Pada node Web Server (Garden dan SSS)
+```
+iptables -A INPUT -j REJECT
+iptables -A INPUT -m time --timestart 07:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+```
+
+Coba ping dari client menuju web server Garden
+
+![ws2ping](https://user-images.githubusercontent.com/100068648/206640168-a0116897-9ef2-4765-8f2b-2a47ce393d70.png)
+
+Coba juga ping dari client menuju web server SSS
+
+![ws1ping](https://user-images.githubusercontent.com/100068648/206640260-f16d9ad0-b868-44f5-9b9d-c6c55b9474b3.png)
+
+## Soal 5
+### Soal
+Karena kita memiliki 2 Web Server, Loid ingin Ostania diatur sehingga setiap request dari client yang mengakses Garden dengan port 80 akan didistribusikan secara bergantian pada SSS dan Garden secara berurutan dan request dari client yang mengakses SSS dengan port 443 akan didistribusikan secara bergantian pada Garden dan SSS secara berurutan.
+
+### Jawaban
