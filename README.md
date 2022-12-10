@@ -369,3 +369,21 @@ Coba juga ping dari client menuju web server SSS
 Karena kita memiliki 2 Web Server, Loid ingin Ostania diatur sehingga setiap request dari client yang mengakses Garden dengan port 80 akan didistribusikan secara bergantian pada SSS dan Garden secara berurutan dan request dari client yang mengakses SSS dengan port 443 akan didistribusikan secara bergantian pada Garden dan SSS secara berurutan.
 
 ### Jawaban
+Atur prerouting pada ostania pada port 80 mengarah ke Garden
+
+```
+iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.34.0.26 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.34.0.27:80
+```
+
+Atur juga prerouting pada node ostania untuk port 443 mengarah ke SSS
+
+```
+iptables -A PREROUTING -t nat -p tcp --dport 443 -d 10.34.0.27 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.34.0.26:443
+```
+
+## Soal 6
+### Soal
+Karena Loid ingin tau paket apa saja yang di-drop, maka di setiap node server dan router ditambahkan logging paket yang di-drop dengan standard syslog level
+
+### Jawaban
+Masih belum nemu :)
